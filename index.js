@@ -1,12 +1,14 @@
-
 const searchQueryElement = document.getElementById('search-query');
 const suggestionContainer = document.querySelector('.suggestion-container');
 const searchContainer = document.querySelector('.search-container');
 const searchInputElement = document.querySelector('.search-input');
 const formContainer = document.querySelector('.form');
+const clearIconElement = document.querySelector('.clear-icon');
+const feelLuckyBtn = document.querySelector('.feel-lucky');
 
-const GOOGLE_IMAGE_FOR_DARK_THEME = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png';
-const GOOGLE_IMAGE_FOR_LIGHT_THEME = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png';
+
+const GOOGLE_IMAGE_FOR_DARK_THEME = './images/google-dark.png';
+const GOOGLE_IMAGE_FOR_LIGHT_THEME = './images/google-light.png';
 
 // Google Images updates when theme is changed
 function updateGoogleImageByTheme(currentTheme) {
@@ -47,6 +49,7 @@ darkModeToggle.addEventListener('change', (event) => {
 });
 
 /*** theme functionality end ***/
+
 
 const wordsArray = ["apple", "banana", "cherry", "mango", "orange", "strawberry", "watermelon", 'Avocado'];
 
@@ -93,6 +96,7 @@ function addDividerElement(parentElement) {
 
 addDividerElement(suggestionContainer);
 
+
 function clearSuggestionContainer() {
     const suggestionList = document.querySelector('.suggestion-list');
     if (suggestionList) {
@@ -105,29 +109,38 @@ const toggleActiveClassnameInput = (element, classname) => {
 }
 
 searchInputElement.addEventListener('focus', function (event) {
-    console.log('searchInputElement', event.target.value)
-    toggleActiveClassnameInput(searchContainer, 'activeInput')
+    searchContainer.classList.add('activeInput');
     addSuggestionList(event)
 })
 
-searchInputElement.addEventListener('blur', function () {
-    toggleActiveClassnameInput(searchContainer, 'activeInput')
-    searchContainer.classList.remove('hide-input-border-bottom');
-    clearSuggestionContainer();
-    suggestionContainer.style.display = "none";
-})
+// when click on outside of form clear suggestion list and input style update 
+window.onclick = function (event) {
+    if (event.target.closest(".form") === null) {
+        clearSuggestionContainer();
+        suggestionContainer.style.display = "none";
+        searchContainer.classList.remove('hide-input-border-bottom');
+        searchContainer.classList.remove('activeInput');
+    }
+}
 
 const addSuggestionList = (event) => {
-    const { value } = event.target;
+
+    const value = event.target?.value || ""
 
     clearSuggestionContainer();
+
+    if (value) {
+        clearIconElement.style.visibility = 'visible';
+    } else {
+        clearIconElement.style.visibility = 'hidden';
+    }
 
     const ulElement = document.createElement('ul');
     ulElement.classList.add('suggestion-list');
 
     const getSuggestionItems = getSuggestionList(wordsArray, value.toLowerCase());
     if (getSuggestionItems.length) {
-        suggestionContainer.style.display = "block";
+        suggestionContainer.style.display = "flex";
         searchContainer.classList.add('hide-input-border-bottom');
     } else {
         suggestionContainer.style.display = "none";
@@ -139,7 +152,6 @@ const addSuggestionList = (event) => {
         liElement.classList.add('suggestion-item');
         liElement.insertAdjacentHTML('afterbegin', searchIcon);
         liElement.appendChild(getHighlightWord(word.toLowerCase(), value))
-        console.log(liElement)
         ulElement.appendChild(liElement);
     });
 
@@ -148,6 +160,60 @@ const addSuggestionList = (event) => {
 
 searchQueryElement.addEventListener("keyup", addSuggestionList);
 
+clearIconElement.addEventListener('click', function (event) {
+    searchInputElement.value = ""
+    clearIconElement.style.visibility = 'hidden';
+    addSuggestionList(event)
+})
+
+const searchValue = (value) => {
+    if (!value) {
+        return true;
+    }
+    window.open(`https://www.google.com/search?q=${value}`, '_blank');
+}
+
 formContainer.addEventListener('submit', (event) => {
     event.preventDefault()
+    const searchQuery = searchInputElement.value;
+    if (!searchQuery) {
+        return true;
+    }
+    searchValue(searchQuery)
 })
+
+
+const openDoodleLucky = () => window.open('https://www.google.com/doodles', '_blank');
+
+feelLuckyBtn.addEventListener('click', openDoodleLucky)
+
+// handle click on suggestion items
+suggestionContainer.addEventListener('click', function (event) {
+
+    // click on suggestion item
+    const searchText = event.target.textContent.trim();
+    if (event.target.closest(".search-cta-btn") === null) {
+        searchInputElement.value = searchText;
+        setTimeout(() => {
+            searchValue(searchText)
+        }, 100);
+    }
+
+    // user click on google search button
+    if (event.target.matches('.google-search') && searchInputElement.value) {
+        searchValue(searchInputElement.value)
+    }
+
+    // click on feel lucky button
+    if (event.target.matches('.feel-lucky')) {
+        openDoodleLucky()
+    }
+})
+
+// clonse search cta button to append on suggestion list container
+const cloneSearchCTAButton = () => {
+    const searchCTABtn = document.querySelector('.search-cta-btn');
+    return searchCTABtn.cloneNode(true);
+}
+
+suggestionContainer.appendChild(cloneSearchCTAButton())

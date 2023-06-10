@@ -21,6 +21,7 @@ html {
   --text: #ffffff;
   --light-blue: #1a73e8;
   --light-blue-hover: #1b66c9;
+  --secondary-color: #dadce0;
   --button-bg: #f8f9fa;
   --button-color: #3c4043;
   --border-color: #dfe1e5;
@@ -37,6 +38,7 @@ html[data-theme="dark"] {
   --text: #202124;
   --light-blue: #8ab4f8;
   --light-blue-hover: #93baf9;
+  --secondary-color: #3c4043;
   --button-bg: #303134;
   --button-color: #e8eaed;
   --border-color: #5f6368;
@@ -94,7 +96,7 @@ body {
 }
 
 .secondary-btn {
-  background: var(--button-bg);
+  background: var(--secondary-color);
   color: var(--button-color);
 }
 
@@ -139,7 +141,7 @@ body {
   border-radius: 24px;
   display: flex;
   align-items: center;
-  padding: 5px 8px 0 14px;
+  padding: 6px 14px 0 14px;
   overflow: hidden;
   cursor: pointer;
 }
@@ -167,10 +169,15 @@ body {
   border: transparent;
 }
 
-.search-icon {
+.search-icon,
+.clear-icon {
   height: 20px;
   width: 20px;
   fill: var(--footer-color);
+}
+
+.clear-icon {
+  visibility: hidden;
 }
 
 .search-input {
@@ -194,6 +201,8 @@ body {
   display: none;
   position: absolute;
   width: 100%;
+  overflow: hidden;
+  flex-direction: column;
 }
 
 .divider {
@@ -224,7 +233,8 @@ body {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  padding-top: 18px;
+  padding: 18px 0;
+  order: 1;
 }
 
 .footer {
