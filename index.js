@@ -2,6 +2,19 @@
 const searchQueryElement = document.getElementById('search-query');
 const containerElement = document.getElementById('container');
 
+const GOOGLE_IMAGE_FOR_DARK_THEME = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png';
+const GOOGLE_IMAGE_FOR_LIGHT_THEME = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png';
+
+// Google Images updates when theme is changed
+function updateGoogleImageByTheme(currentTheme) {
+    const googleImageElement = document.querySelector('.google-img');
+    if (currentTheme === 'dark') {
+        googleImageElement.setAttribute('src', GOOGLE_IMAGE_FOR_DARK_THEME)
+    } else {
+        googleImageElement.setAttribute('src', GOOGLE_IMAGE_FOR_LIGHT_THEME)
+    }
+}
+
 /*** theme functionality start ***/
 
 // get current theme from localStorage and use the current theme
@@ -12,11 +25,13 @@ const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme
 
 if (currentTheme) {
     htmlElement.dataset.theme = currentTheme;
+    updateGoogleImageByTheme(currentTheme);
 }
 
 // whenever theme is changed, update value in localstorage also
 const toggleTheme = (theme) => {
     htmlElement.dataset.theme = theme;
+    updateGoogleImageByTheme(theme);
     localStorage.setItem('theme', theme);
 }
 
