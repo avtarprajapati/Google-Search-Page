@@ -1,210 +1,281 @@
 *,
 *::after,
 *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 html {
-    font-size: 62.5%;
-    transition: color 300ms, background-color 300ms;
+  font-size: 62.5%;
+  transition: color 300ms, background-color 300ms;
 
-    @media screen and (max-width: 500px) {
-        font-size: 50%;
-    }
+  @media screen and (max-width: 500px) {
+    font-size: 50%;
+  }
 }
 
 :root {
-    --bg-color: #ffffff;
-    --color: #202124;
-    --text: #ffffff;
-    --light-blue: #1a73e8;
-    --light-blue-hover: #1b66c9;
-    --button-bg: #f8f9fa;
-    --button-color: #3c4043;
-    --border-color: #dfe1e5;
-    --dark-color: #f2f2f2;
-    --footer-color: #70757a;
-    --footer-border: #dadce0
+  --bg-color: #ffffff;
+  --color: #202124;
+  --text: #ffffff;
+  --light-blue: #1a73e8;
+  --light-blue-hover: #1b66c9;
+  --button-bg: #f8f9fa;
+  --button-color: #3c4043;
+  --border-color: #dfe1e5;
+  --dark-color: #f2f2f2;
+  --footer-color: #70757a;
+  --footer-border: #dadce0;
+  --box-shadow: rgba(32, 33, 36, 0.28);
+  --bg-hover: #eef0f1;
 }
 
 html[data-theme="dark"] {
-    --bg-color: #202124;
-    --color: #ffffff;
-    --text: #202124;
-    --light-blue: #8ab4f8;
-    --light-blue-hover: #93baf9;
-    --button-bg: #303134;
-    --button-color: #e8eaed;
-    --border-color: #5f6368;
-    --dark-color: #171717;
-    --footer-color: #9aa0a6;
-    --footer-border: #3c4043
+  --bg-color: #202124;
+  --color: #ffffff;
+  --text: #202124;
+  --light-blue: #8ab4f8;
+  --light-blue-hover: #93baf9;
+  --button-bg: #303134;
+  --button-color: #e8eaed;
+  --border-color: #5f6368;
+  --dark-color: #171717;
+  --footer-color: #9aa0a6;
+  --footer-border: #3c4043;
+  --box-shadow: #171717;
+  --bg-hover: #444546a3;
 }
 
 body {
-    font-size: 1.6rem;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: var(--bg-color);
-    color: var(--color);
+  font-size: 1.6rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  color: var(--color);
 }
 
 .link {
-    color: var(--color);
-    text-decoration: none;
-    outline: none;
+  color: var(--color);
+  text-decoration: none;
+  outline: none;
 }
 
 .header {
-    padding: 14px;
-    width: 100%;
+  padding: 14px;
+  width: 100%;
 }
 
 .header-menu {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    list-style: none;
-    gap: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  list-style: none;
+  gap: 15px;
 }
 
 .btn {
-    border: 1px solid transparent;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    padding: 9px 23px;
-    font-size: 1.4rem;
-    border-radius: 4px;
-    cursor: pointer;
+  border: 1px solid transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  padding: 9px 23px;
+  font-size: 1.4rem;
+  border-radius: 4px;
+  cursor: pointer;
 }
 
 .primary-btn {
-    background: var(--light-blue);
-    color: var(--text);
+  background: var(--light-blue);
+  color: var(--text);
 }
 
 .secondary-btn {
-    background: var(--button-bg);
-    color: var(--button-color);
+  background: var(--button-bg);
+  color: var(--button-color);
 }
 
 .section {
-    flex-grow: 1;
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    flex-direction: column;
-    padding-top: 80px;
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+  padding-top: 80px;
 }
 
 .google-img-container {
-    height: 92px;
-    width: 272px;
+  height: 92px;
+  width: 272px;
 }
 
 .google-img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    object-position: center bottom;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
 }
 
 .form {
-    padding: 20px;
-    margin: 0 auto;
-    width: 584px;
+  padding: 20px;
+  margin: 0 auto;
+  width: 584px;
+}
+
+.form-container {
+  position: relative;
+  width: 100%;
 }
 
 .search-container {
-    min-height: 44px;
-    background: var(--bg-color);
-    border: 1px solid var(--border-color);
-    box-shadow: none;
-    border-radius: 24px;
-    display: flex;
-    align-items: center;
-    padding: 5px 8px 0 14px;
-    overflow: hidden;
+  min-height: 44px;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  box-shadow: none;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  padding: 5px 8px 0 14px;
+  overflow: hidden;
+  cursor: pointer;
 }
 
 .search-container:hover,
-.search-container:hover .search-input {
-    background-color: var(--button-bg);
+.search-container:hover .search-input,
+.activeInput,
+.activeInput > .search-input {
+  background-color: var(--button-bg);
+  border: transparent;
+}
+
+.search-container:hover,
+.activeInput {
+  box-shadow: 0 3px 10px var(--box-shadow);
+}
+
+.activeInput + .suggestion-container {
+  box-shadow: 0 4px 6px rgba(32, 33, 36, 0.28);
+}
+
+.hide-input-border-bottom {
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  border: transparent;
 }
 
 .search-icon {
-    height: 20px;
-    width: 20px;
-    fill: var(--footer-color);
+  height: 20px;
+  width: 20px;
+  fill: var(--footer-color);
 }
 
 .search-input {
-    background-color: var(--bg-color);
-    color: var(--button-color);
-    width: 100%;
-    min-height: 44px;
-    border: none;
-    outline: none;
-    font-size: 1.6rem;
-    padding: 0 14px;
+  background-color: var(--bg-color);
+  color: var(--button-color);
+  width: 100%;
+  min-height: 44px;
+  border: none;
+  outline: none;
+  font-size: 1.6rem;
+  padding: 0 14px;
+  cursor: pointer;
+}
+
+.suggestion-container {
+  background-color: var(--button-bg);
+  border-radius: 0 0 24px 24px;
+  box-shadow: 0 4px 6px 0 var(--dark-color);
+  border: 0;
+  padding-bottom: 4px;
+  display: none;
+  position: absolute;
+  width: 100%;
+}
+
+.divider {
+  border-top: 0.4px solid var(--border-color);
+  padding-bottom: 10px;
+  margin: 0 20px;
+}
+
+.suggestion-list {
+  list-style: none;
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 14px;
+  gap: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.suggestion-item:hover {
+  background-color: var(--bg-hover);
 }
 
 .search-cta-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    padding-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding-top: 18px;
 }
 
 .footer {
-    width: 100%;
-    background-color: var(--dark-color);
-    color: var(--footer-color);
+  width: 100%;
+  background-color: var(--dark-color);
+  color: var(--footer-color);
 }
 
 .location {
-    padding: 15px 30px;
+  padding: 15px 30px;
 }
 
 .bottom-footer {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px;
-    border-top: 1px solid var(--footer-border);
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px;
+  border-top: 1px solid var(--footer-border);
 }
 
 .bottom-footer ul {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    padding: 15px;
-    gap: 15px;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 15px;
+  gap: 15px;
 }
 
 .bottom-footer ul li {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .bottom-footer ul li:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 @media only screen and (max-width: 1200px) {
-    .bottom-footer {
-        justify-content: space-around;
-    }
+  .bottom-footer {
+    justify-content: space-around;
+  }
 }
 
 @media only screen and (max-width: 620px) {
-    .bottom-footer {
-        flex-direction: column;
-        align-items: center;
-    }
+  .form {
+    width: 100%;
+  }
+
+  .bottom-footer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .bottom-footer .left-footer {
+    padding-bottom: 0;
+  }
 }

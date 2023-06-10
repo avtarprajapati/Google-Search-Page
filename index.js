@@ -1,6 +1,9 @@
 
 const searchQueryElement = document.getElementById('search-query');
-const containerElement = document.getElementById('container');
+const suggestionContainer = document.querySelector('.suggestion-container');
+const searchContainer = document.querySelector('.search-container');
+const searchInputElement = document.querySelector('.search-input');
+const formContainer = document.querySelector('.form');
 
 const GOOGLE_IMAGE_FOR_DARK_THEME = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_light_color_272x92dp.png';
 const GOOGLE_IMAGE_FOR_LIGHT_THEME = 'https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png';
@@ -59,33 +62,90 @@ function getSuggestionList(listData, searchQuery) {
 function getHighlightWord(text, highlightText) {
     const highlightLength = highlightText.length;
     const currentHighlightText = createElement('b', text.slice(0, highlightLength));
-    const remainingWord = text.slice(highlightLength, -1);
+    const remainingWord = text.slice(highlightLength, text.length);
     const spanElement = document.createElement('span');
     spanElement.appendChild(currentHighlightText);
     spanElement.appendChild(document.createTextNode(remainingWord));
     return spanElement;
 }
 
-searchQueryElement.addEventListener("keyup", (event) => {
+const searchIcon = `<div class="search-icon">
+                  <span style="height: 20px; line-height: 20px; width: 20px">
+                    <svg
+                      focusable="false"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"
+                      ></path>
+                    </svg>
+                  </span>
+                </div>`;
+
+function addDividerElement(parentElement) {
+    const dividerElement = document.createElement('div');
+    dividerElement.classList.add('divider');
+    parentElement.appendChild(dividerElement);
+}
+
+addDividerElement(suggestionContainer);
+
+function clearSuggestionContainer() {
+    const suggestionList = document.querySelector('.suggestion-list');
+    if (suggestionList) {
+        suggestionList.remove();
+    }
+}
+
+const toggleActiveClassnameInput = (element, classname) => {
+    element.classList.toggle(classname);
+}
+
+searchInputElement.addEventListener('focus', function (event) {
+    console.log('searchInputElement', event.target.value)
+    toggleActiveClassnameInput(searchContainer, 'activeInput')
+    addSuggestionList(event)
+})
+
+searchInputElement.addEventListener('blur', function () {
+    toggleActiveClassnameInput(searchContainer, 'activeInput')
+    searchContainer.classList.remove('hide-input-border-bottom');
+    clearSuggestionContainer();
+    suggestionContainer.style.display = "none";
+})
+
+const addSuggestionList = (event) => {
     const { value } = event.target;
 
+    clearSuggestionContainer();
+
     const ulElement = document.createElement('ul');
+    ulElement.classList.add('suggestion-list');
 
     const getSuggestionItems = getSuggestionList(wordsArray, value.toLowerCase());
+    if (getSuggestionItems.length) {
+        suggestionContainer.style.display = "block";
+        searchContainer.classList.add('hide-input-border-bottom');
+    } else {
+        suggestionContainer.style.display = "none";
+        searchContainer.classList.remove('hide-input-border-bottom');
+    }
 
-    console.log('getSuggestionItems', getSuggestionItems)
-
-    const liItems = getSuggestionItems.map(word => {
-        console.log('getHighlightWord addEventListener', getHighlightWord(word, value))
+    getSuggestionItems.forEach(word => {
         const liElement = document.createElement('li');
-        liElement.appendChild(getHighlightWord(word, value))
+        liElement.classList.add('suggestion-item');
+        liElement.insertAdjacentHTML('afterbegin', searchIcon);
+        liElement.appendChild(getHighlightWord(word.toLowerCase(), value))
         console.log(liElement)
         ulElement.appendChild(liElement);
-        return liElement;
     });
 
-    console.log('liItems', ulElement);
+    suggestionContainer.appendChild(ulElement);
+}
 
-    // containerElement.appendChild(ul)
-    // console.log('addEventListener', ul, liItems);
-});
+searchQueryElement.addEventListener("keyup", addSuggestionList);
+
+formContainer.addEventListener('submit', (event) => {
+    event.preventDefault()
+})
