@@ -6,13 +6,13 @@ This Google Search Page is about the assignment of ABCXchange. [Live Website](ht
 
 ## Screenshots
 
-![Screenshot of Dark Page](/images/screenshot-dark-mode-1 "Screenshot of Dark Page.")
+![Screenshot of Dark Page](https://search-google-page.netlify.app/images/screenshot-dark-mode-1.png "Screenshot of Dark Page.")
 
-![Screenshot of Dark Page with suggestion list](/images/screenshot-dark-mode-2 "Screenshot of Dark Page with suggestion list.")
+![Screenshot of Dark Page with suggestion list](https://search-google-page.netlify.app/images/screenshot-dark-mode-2.png "Screenshot of Dark Page with suggestion list.")
 
-![Screenshot of Light Page](/images/screenshot-light-mode-1 "Screenshot of Light Page.")
+![Screenshot of Light Page](https://search-google-page.netlify.app/images/screenshot-light-mode-1.png "Screenshot of Light Page.")
 
-![Screenshot of Light Page with suggestion list](/images/screenshot-light-mode-2 "Screenshot of Light Page with suggestion list.")
+![Screenshot of Light Page with suggestion list](https://search-google-page.netlify.app/images/screenshot-light-mode-2.png "Screenshot of Light Page with suggestion list.")
 
 ## Use this Project on local machine
 
