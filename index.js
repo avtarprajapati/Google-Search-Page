@@ -22,13 +22,15 @@ function updateGoogleImageByTheme(currentTheme) {
 
 // get current theme from localStorage and use the current theme
 const htmlElement = document.getElementsByTagName('html')[0];
-const toggleThemeCheckbox = document.querySelector('.toggle-theme');
+const darkModeToggle = document.querySelector('.darkmode-toggle');
 const defaultTheme = window.matchMedia("(prefers-color-scheme:dark)").matches ? 'dark' : 'light';
 const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : defaultTheme;
 
 if (currentTheme) {
     htmlElement.dataset.theme = currentTheme;
     updateGoogleImageByTheme(currentTheme);
+    localStorage.setItem('theme', currentTheme);
+    darkModeToggle.checked = currentTheme === 'dark'
 }
 
 // whenever theme is changed, update value in localstorage also
@@ -38,7 +40,7 @@ const toggleTheme = (theme) => {
     localStorage.setItem('theme', theme);
 }
 
-toggleThemeCheckbox.addEventListener('change', (event) => {
+darkModeToggle.addEventListener('change', (event) => {
     const { checked } = event.target;
     const theme = checked ? 'dark' : 'light';
     toggleTheme(theme)
